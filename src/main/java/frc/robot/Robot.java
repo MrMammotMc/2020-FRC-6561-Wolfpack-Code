@@ -7,9 +7,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+import edu.wpi.cscore.UsbCamera;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,13 +23,17 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
 
-  private RobotContainer m_robotContainer = new RobotContainer();
+  private RobotContainer m_robotContainer; 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
+    m_robotContainer = new RobotContainer();
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    camera.setResolution(320, 240);
+
   }
 
   /**
@@ -37,6 +45,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    //System.out.println("robotPeriodic invoked");
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -78,10 +87,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+     m_robotContainer.tempDrive();
+     m_robotContainer.elevatorDrive();
+     m_robotContainer.shooterDrive();
+    //System.out.println("teleopPeriodic invoked");
   }
 
   @Override
   public void testInit() {
+    
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }

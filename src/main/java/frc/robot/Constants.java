@@ -30,4 +30,11 @@ public final class Constants {
     public static final int SHOOTER_ANGLE = 2;
     public static final int ELEVATOR = 3;
     public static final int TRIGGER = 4;
+
+    /**
+     * This value is used to filter out the joystick signal, before passing it 
+     * to the drive command.
+     */
+    public static final double FILTER_THRESHOLD = 0.25;
+
 }

@@ -14,15 +14,16 @@ public class DriveSubsystem extends SubsystemBase {
     private final VictorSPX rightFMotor = new VictorSPX(Constants.RIGHT_FRONT_MOTOR);
     private final VictorSPX rightBMotor = new VictorSPX(Constants.RIGHT_BACK_MOTOR);
 
+
     public DriveSubsystem() {
 
     }
 
     public void drive(final double forward, final double twist) {
         System.out.println("forward:" + forward + " turn:" + twist);
-        leftFMotor.set(ControlMode.PercentOutput, forward, DemandType.ArbitraryFeedForward, - twist);
-        leftBMotor.set(ControlMode.PercentOutput, forward, DemandType.ArbitraryFeedForward, - twist);
-        rightFMotor.set(ControlMode.PercentOutput, forward, DemandType.ArbitraryFeedForward, + twist);
-        rightBMotor.set(ControlMode.PercentOutput, forward, DemandType.ArbitraryFeedForward, + twist);
+        leftFMotor.set(ControlMode.PercentOutput, - forward, DemandType.ArbitraryFeedForward, + twist / 2);
+        leftBMotor.set(ControlMode.PercentOutput, - forward, DemandType.ArbitraryFeedForward, + twist / 2);
+        rightFMotor.set(ControlMode.PercentOutput, + forward, DemandType.ArbitraryFeedForward, + twist / 2);
+        rightBMotor.set(ControlMode.PercentOutput, + forward, DemandType.ArbitraryFeedForward, + twist / 2);
     }
 }
